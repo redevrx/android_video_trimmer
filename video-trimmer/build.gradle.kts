@@ -64,8 +64,8 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.redevrx"
-            artifactId = "video-trimmer"
-            version = "1.0"
+            artifactId = "android_video_trimmer"
+            version = "1.0.0"
 
             afterEvaluate {
                 from(components["release"])

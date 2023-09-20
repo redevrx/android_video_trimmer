@@ -1,7 +1,7 @@
 # Android Video Trimmer
 
 ```groovy
-implementation("com.redevrx.video_trimmer:x.x.x")
+implementation 'com.github.redevrx:android_video_trimmer:1.0'
 ```
 
 ## Example

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Environment
 import androidx.appcompat.app.AppCompatActivity
 import com.redevrx.android_video_trimmer.databinding.ActivityMain2Binding
-import com.redevrx.video_trimmer.event.OnVideoEditedEvent
 
 class MainActivity2 : AppCompatActivity(), OnVideoEditedEvent {
     private lateinit var binding: ActivityMain2Binding

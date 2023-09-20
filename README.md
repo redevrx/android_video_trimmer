@@ -1,7 +1,9 @@
 # Android Video Trimmer
+Create Video Trimmer with Media3
 
-# Setup
-## Kotlin-dsl
+## Setup
+
+### Kotlin-dsl
 ```kotlin
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -15,7 +17,7 @@ dependencyResolutionManagement {
 }
 ```
 
-## Gradle groovy
+### Gradle groovy
 ```groovy
 	allprojects {
 		repositories {
@@ -77,5 +79,8 @@ override fun onProgress(percentage: Int) {
 
 }
 ```
+
+## Example App
+<img src="example.gif" width="350"  alt="Example Video App"/>
 
 

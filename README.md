@@ -1,5 +1,30 @@
 # Android Video Trimmer
 
+# Setup
+## Kotlin-dsl
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            setUrl("https://jitpack.io")
+        }
+    }
+}
+```
+
+## Gradle groovy
+```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
 ```groovy
 implementation 'com.github.redevrx:android_video_trimmer:1.0.0'
 ```

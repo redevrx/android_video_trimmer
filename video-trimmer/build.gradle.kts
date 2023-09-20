@@ -75,11 +75,9 @@ afterEvaluate {
                 // NOTE : Delete this line code if you publish Native Java / Kotlin Library
                 from(components["release"])
 
-                // Library Package Name (Example : "com.frogobox.androidfirstlib")
                 // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
                 groupId = "com.github.redevrx"
 
-                // Library Name / Module Name (Example : "androidfirstlib")
                 // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
                 artifactId = "android_video_trimmer"
 

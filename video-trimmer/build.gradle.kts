@@ -37,6 +37,12 @@ android {
     testFixtures {
         enable = true
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {

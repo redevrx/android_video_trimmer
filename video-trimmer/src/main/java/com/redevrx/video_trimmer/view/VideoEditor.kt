@@ -390,7 +390,7 @@ class VideoEditor @JvmOverloads constructor(
                     exportResult: ExportResult,
                     exportException: ExportException
                 ) {
-                   mOnVideoEditedListener?.onError(exportException.localizedMessage)
+                    exportException.localizedMessage?.let { mOnVideoEditedListener?.onError(it) }
                 }
             })
             .build()

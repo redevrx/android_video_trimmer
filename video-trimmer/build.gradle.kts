@@ -34,9 +34,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    testFixtures {
-        enable = true
-    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -66,16 +63,31 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.redevrx"
-            artifactId = "android_video_trimmer"
-            version = "1.0.0"
 
-            afterEvaluate {
+afterEvaluate {
+    publishing {
+        publications {
+
+            // Creates a Maven publication called "release".
+            create<MavenPublication>("release") {
+
+                // Applies the component for the release build variant.
+                // NOTE : Delete this line code if you publish Native Java / Kotlin Library
                 from(components["release"])
+
+                // Library Package Name (Example : "com.frogobox.androidfirstlib")
+                // NOTE : Different GroupId For Each Library / Module, So That Each Library Is Not Overwritten
+                groupId = "com.github.redevrx"
+
+                // Library Name / Module Name (Example : "androidfirstlib")
+                // NOTE : Different ArtifactId For Each Library / Module, So That Each Library Is Not Overwritten
+                artifactId = "android_video_trimmer"
+
+                // Version Library Name (Example : "1.0.0")
+                version = "1.0.0"
+
             }
+
         }
     }
 }

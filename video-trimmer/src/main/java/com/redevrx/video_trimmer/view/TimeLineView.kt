@@ -24,7 +24,7 @@ class TimeLineView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     private fun init() {
-        mHeightView = context.resources.getDimensionPixelOffset(R.dimen.frames_video_height)
+       mHeightView = context.resources.getDimensionPixelOffset(R.dimen.frames_video_height)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -129,7 +129,7 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
                         newX <= mPixelRangeMin -> mThumb.pos = mPixelRangeMin
                         else -> {
                             checkPositionThumb(mThumb, mThumb2, dx, true)
-                            mThumb.pos = mThumb.pos + dx
+                            mThumb.pos += dx
                             mThumb.lastTouchX = coordinate
                         }
                     }
@@ -140,7 +140,7 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
                         newX >= mPixelRangeMax -> mThumb.pos = mPixelRangeMax
                         else -> {
                             checkPositionThumb(mThumb2, mThumb, dx, false)
-                            mThumb.pos = mThumb.pos + dx
+                            mThumb.pos += dx
                             mThumb.lastTouchX = coordinate
                         }
                     }

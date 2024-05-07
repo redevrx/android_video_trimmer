@@ -68,7 +68,7 @@ class VideoEditor @JvmOverloads constructor(
 
     private lateinit var binding: TrimmerViewLayoutBinding
 
-    private var mDuration:Long = 0L
+    private var mDuration: Long = 0L
     private var mTimeVideo = 0L
     private var mStartPosition = 0L
 
@@ -117,7 +117,7 @@ class VideoEditor @JvmOverloads constructor(
             GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                     onClickVideoPlayPause()
-                    Toast.makeText(context,"Click",Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Click", Toast.LENGTH_LONG).show()
                     return true
                 }
             })
@@ -130,6 +130,8 @@ class VideoEditor @JvmOverloads constructor(
             gestureDetector.onTouchEvent(event)
             true
         }
+
+
 
         binding.handlerTop.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -161,6 +163,10 @@ class VideoEditor @JvmOverloads constructor(
                 onStopSeekThumbs()
             }
         })
+//
+//        if (mPlayer != null && mPlayer.isPlaying) {
+//            binding.handlerTop.visibility = View.VISIBLE
+//        }
     }
 
     private fun onPlayerIndicatorSeekChanged(progress: Int, fromUser: Boolean) {
@@ -200,9 +206,8 @@ class VideoEditor @JvmOverloads constructor(
     }
 
 
-
     private fun onClickVideoPlayPause() {
-        if ( mPlayer.isPlaying) {
+        if (mPlayer.isPlaying) {
             binding.iconVideoPlay.visibility = View.VISIBLE
             mMessageHandler.removeMessages(SHOW_PROGRESS)
             mPlayer.pause()
@@ -211,8 +216,11 @@ class VideoEditor @JvmOverloads constructor(
             if (mResetSeekBar) {
                 mResetSeekBar = false
                 mPlayer.seekTo(mStartPosition)
+                binding.handlerTop.visibility=View.VISIBLE
+                setProgressBarPosition(0)
             }
             mResetSeekBar = false
+            binding.handlerTop.visibility = View.VISIBLE
             mMessageHandler.sendEmptyMessage(SHOW_PROGRESS)
             mPlayer.play()
         }
@@ -247,7 +255,7 @@ class VideoEditor @JvmOverloads constructor(
         binding.videoLoader.layoutParams = lp
 
         binding.iconVideoPlay.visibility = View.VISIBLE
-        mDuration =  mPlayer.duration
+        mDuration = mPlayer.duration
 //        mDuration = binding.videoLoader.duration.toFloat()
         setSeekBarPosition()
         setTimeFrames()
@@ -324,7 +332,7 @@ class VideoEditor @JvmOverloads constructor(
 
     private fun notifyProgressUpdate(all: Boolean) {
         if (mDuration == 0L) return
-        val position =  mPlayer.currentPosition//binding.videoLoader.currentPosition
+        val position = mPlayer.currentPosition//binding.videoLoader.currentPosition
         if (all) {
             for (item in mListeners) {
                 item.updateProgress(position.toFloat(), mDuration, (position * 100 / mDuration))
@@ -354,12 +362,12 @@ class VideoEditor @JvmOverloads constructor(
         setProgressBarPosition(time)
     }
 
-    fun setVideoBackgroundColor(@ColorInt color:Int) = with(binding){
+    fun setVideoBackgroundColor(@ColorInt color: Int) = with(binding) {
         container.setBackgroundColor(color)
         layout.setBackgroundColor(color)
     }
 
-    fun setFrameColor(@ColorInt color: Int) = with(binding){
+    fun setFrameColor(@ColorInt color: Int) = with(binding) {
         frameColor.setBackgroundColor(color)
     }
 
@@ -371,7 +379,7 @@ class VideoEditor @JvmOverloads constructor(
         val matches = regex.findAll(txtTime)
         val timeList = matches.map { it.value }.toList()
 
-        val filePath  = "$destinationPath/${UUID.randomUUID()}.mp4"
+        val filePath = "$destinationPath/${UUID.randomUUID()}.mp4"
 
         val transformation = TransformationRequest.Builder()
             .setVideoMimeType(MimeTypes.VIDEO_H264)
@@ -382,7 +390,7 @@ class VideoEditor @JvmOverloads constructor(
             .setTransformationRequest(transformation)
             .addListener(object : androidx.media3.transformer.Transformer.Listener {
                 override fun onCompleted(composition: Composition, exportResult: ExportResult) {
-                 mOnVideoEditedListener?.getResult(Uri.parse(filePath))
+                    mOnVideoEditedListener?.getResult(Uri.parse(filePath))
                 }
 
                 override fun onError(
@@ -417,8 +425,9 @@ class VideoEditor @JvmOverloads constructor(
             .setEffects(Effects.EMPTY)
             .build()
 
-        val composition = Composition.Builder(listOf(EditedMediaItemSequence(listOf(editedMediaItem))))
-            .build()
+        val composition =
+            Composition.Builder(listOf(EditedMediaItemSequence(listOf(editedMediaItem))))
+                .build()
 
         transformer.start(composition, filePath)
     }
@@ -501,10 +510,11 @@ class VideoEditor @JvmOverloads constructor(
         }
 
 
-        mPlayer.addListener(object :Player.Listener{
+        mPlayer.addListener(object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
                 mOnVideoEditedListener?.onError("Something went wrong reason : ${error.localizedMessage}")
             }
+
             @SuppressLint("UnsafeOptInUsageError")
             override fun onVideoSizeChanged(videoSize: VideoSize) {
                 super.onVideoSizeChanged(videoSize)
@@ -516,6 +526,18 @@ class VideoEditor @JvmOverloads constructor(
                 }
 
                 onVideoPrepared(mPlayer)
+
+            }
+            override fun onPlaybackStateChanged(state: Int) {
+                if (state == Player.STATE_ENDED) {
+                    // Video has ended, seek back to the start
+                    mResetSeekBar=true
+                    mPlayer.seekTo(mStartPosition)
+                    binding.handlerTop.visibility=View.VISIBLE
+                    setProgressBarPosition(0)
+                    // You might want to start playing the video again here if needed
+                    // mPlayer.play()
+                }
             }
         })
 
@@ -566,11 +588,14 @@ class VideoEditor @JvmOverloads constructor(
 
     fun onResume() {
         mPlayer.seekTo(videoPlayerCurrentPosition)
+        if(binding?.videoLoader?.player?.isPlaying==true){
+            binding.handlerTop.visibility= View.VISIBLE
+        }
 //        binding.videoLoader.seekTo(videoPlayerCurrentPosition)
     }
 
     fun onPause() {
-        videoPlayerCurrentPosition =  mPlayer.currentPosition
+        videoPlayerCurrentPosition = mPlayer.currentPosition
 //        videoPlayerCurrentPosition = binding.videoLoader.currentPosition
     }
 

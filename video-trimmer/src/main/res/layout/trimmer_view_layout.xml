@@ -47,11 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/rounded_textview_video_trim"
             android:gravity="center_horizontal"
-            android:visibility="gone">
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            >
 
             <TextView
                 android:id="@+id/textTimeSelection"
@@ -68,28 +68,31 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/timeLineFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/timeFrame"
+            android:layout_marginTop="8dp"
             android:paddingTop="@dimen/_5sdp"
             android:paddingBottom="@dimen/_5sdp">
 
             <FrameLayout
                 android:id="@+id/frame_color"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_54sdp"
+                android:layout_height="wrap_content"
                 android:background="@android:color/black"
-                android:paddingTop="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_5sdp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
 
                 <com.redevrx.video_trimmer.view.TimeLineView
                     android:id="@+id/timeLineView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_37sdp"
-                    android:layout_marginEnd="@dimen/_37sdp"
+                    android:layout_gravity="center_horizontal"
                     />
 
             </FrameLayout>
@@ -99,26 +102,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
                 android:max="1000"
+                android:layout_marginHorizontal="16dp"
                 android:progressDrawable="@android:color/transparent"
                 android:secondaryProgress="0"
-                android:thumb="@drawable/seek_line"
-                android:visibility="gone" />
+                android:thumb="@drawable/seek_new_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                 />
 
             <com.redevrx.video_trimmer.view.RangeSeekBarView
                 android:id="@+id/timeLineBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:layout_marginBottom="@dimen/_2sdp" />
+                android:layout_height="@dimen/frames_video_height"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="3dp"
+                />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
 

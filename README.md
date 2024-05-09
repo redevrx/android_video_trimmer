@@ -28,7 +28,7 @@ dependencyResolutionManagement {
 ```
 
 ```groovy
-implementation 'com.github.redevrx:android_video_trimmer:1.0.0'
+implementation 'com.github.redevrx:android_video_trimmer:1.0.1'
 ```
 
 ## Example

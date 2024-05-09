@@ -12,7 +12,11 @@ import com.redevrx.video_trimmer.R
 import com.redevrx.video_trimmer.event.OnRangeSeekBarEvent
 
 
-class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class RangeSeekBarView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
     private var mHeightTimeLine = 0
     lateinit var thumbs: List<Thumb>
@@ -48,12 +52,12 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
 
         mFirstRun = true
 
-        val shadowColor = context.getColor( R.color.shadow_color)
+        val shadowColor = context.getColor(R.color.shadow_color)
         mShadow.isAntiAlias = true
         mShadow.color = shadowColor
         mShadow.alpha = 177
 
-        val lineColor = context.getColor( R.color.line_color)
+        val lineColor = context.getColor(R.color.line_color)
         mLine.isAntiAlias = true
         mLine.color = lineColor
         mLine.alpha = 200
@@ -110,6 +114,7 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
                 onSeekStart(this, currentThumb, mThumb.value)
                 return true
             }
+
             MotionEvent.ACTION_UP -> {
                 if (currentThumb == -1) return false
                 mThumb = thumbs[currentThumb]
@@ -125,7 +130,9 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
                 val newX = mThumb.pos + dx
                 if (currentThumb == 0) {
                     when {
-                        newX + mThumb.widthBitmap >= mThumb2.pos -> mThumb.pos = mThumb2.pos - mThumb.widthBitmap
+                        newX + mThumb.widthBitmap >= mThumb2.pos -> mThumb.pos =
+                            mThumb2.pos - mThumb.widthBitmap
+
                         newX <= mPixelRangeMin -> mThumb.pos = mPixelRangeMin
                         else -> {
                             checkPositionThumb(mThumb, mThumb2, dx, true)
@@ -136,7 +143,9 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
 
                 } else {
                     when {
-                        newX <= mThumb2.pos + mThumb2.widthBitmap -> mThumb.pos = mThumb2.pos + mThumb.widthBitmap
+                        newX <= mThumb2.pos + mThumb2.widthBitmap -> mThumb.pos =
+                            mThumb2.pos + mThumb.widthBitmap
+
                         newX >= mPixelRangeMax -> mThumb.pos = mPixelRangeMax
                         else -> {
                             checkPositionThumb(mThumb2, mThumb, dx, false)
@@ -154,7 +163,12 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
         return false
     }
 
-    private fun checkPositionThumb(mThumbLeft: Thumb, mThumbRight: Thumb, dx: Float, isLeftMove: Boolean) {
+    private fun checkPositionThumb(
+        mThumbLeft: Thumb,
+        mThumbRight: Thumb,
+        dx: Float,
+        isLeftMove: Boolean
+    ) {
         if (isLeftMove && dx < 0) {
             if (mThumbRight.pos + dx - mThumbLeft.pos > mMaxWidth) {
                 mThumbRight.pos = mThumbLeft.pos + dx + mMaxWidth
@@ -249,13 +263,15 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
                 if (th.index == 0) {
                     val x = th.pos + paddingLeft
                     if (x > mPixelRangeMin) {
-                        val mRect = Rect(mThumbWidth.toInt(), 0, (x + mThumbWidth).toInt(), mHeightTimeLine)
+                        val mRect =
+                            Rect(mThumbWidth.toInt(), 0, (x + mThumbWidth).toInt(), mHeightTimeLine)
                         canvas.drawRect(mRect, mShadow)
                     }
                 } else {
                     val x = th.pos - paddingRight
                     if (x < mPixelRangeMax) {
-                        val mRect = Rect(x.toInt(), 0, (mViewWidth - mThumbWidth).toInt(), mHeightTimeLine)
+                        val mRect =
+                            Rect(x.toInt(), 0, (mViewWidth - mThumbWidth).toInt(), mHeightTimeLine)
                         canvas.drawRect(mRect, mShadow)
                     }
                 }
@@ -267,9 +283,19 @@ class RangeSeekBarView @JvmOverloads constructor(context: Context, attrs: Attrib
         if (thumbs.isNotEmpty()) {
             for (th in thumbs) {
                 if (th.index == 0) {
-                    if (th.bitmap != null) canvas.drawBitmap(th.bitmap!!, th.pos + paddingLeft, 0f, null)
+                    if (th.bitmap != null) canvas.drawBitmap(
+                        th.bitmap!!,
+                        th.pos + paddingLeft,
+                        0f,
+                        null
+                    )
                 } else {
-                    if (th.bitmap != null) canvas.drawBitmap(th.bitmap!!, th.pos - paddingRight, 0f, null)
+                    if (th.bitmap != null) canvas.drawBitmap(
+                        th.bitmap!!,
+                        th.pos - paddingRight,
+                        0f,
+                        null
+                    )
                 }
             }
         }

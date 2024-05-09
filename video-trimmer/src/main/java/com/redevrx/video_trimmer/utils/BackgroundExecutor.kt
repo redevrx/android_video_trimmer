@@ -1,8 +1,12 @@
 package com.redevrx.video_trimmer.utils
 
 import android.util.Log
-import java.util.ArrayList
-import java.util.concurrent.*
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.max
 
@@ -10,7 +14,8 @@ object BackgroundExecutor {
 
     private const val TAG = "BackgroundExecutor"
 
-    private val DEFAULT_EXECUTOR: Executor = Executors.newScheduledThreadPool(2 * Runtime.getRuntime().availableProcessors())
+    private val DEFAULT_EXECUTOR: Executor =
+        Executors.newScheduledThreadPool(2 * Runtime.getRuntime().availableProcessors())
     private val executor = DEFAULT_EXECUTOR
     private val TASKS = ArrayList<Task>()
     private val CURRENT_SERIAL = ThreadLocal<String>()
@@ -132,7 +137,10 @@ object BackgroundExecutor {
                         task.postExecute()
                     }
                 } else if (task.executionAsked) {
-                    Log.w(TAG, "A task with id " + task.id + " cannot be cancelled (the executor set does not support it)")
+                    Log.w(
+                        TAG,
+                        "A task with id " + task.id + " cannot be cancelled (the executor set does not support it)"
+                    )
                 } else {
                     /* this task has not been submitted to the executor */
                     TASKS.removeAt(i)
@@ -209,7 +217,8 @@ object BackgroundExecutor {
                     if (next != null) {
                         if (next.remainingDelay != 0L) {
                             /* the delay may not have elapsed yet */
-                            next.remainingDelay = max(0L, targetTimeMillis - System.currentTimeMillis())
+                            next.remainingDelay =
+                                max(0L, targetTimeMillis - System.currentTimeMillis())
                         }
                         /* a task having the same serial was queued, execute it */
                         execute(next)

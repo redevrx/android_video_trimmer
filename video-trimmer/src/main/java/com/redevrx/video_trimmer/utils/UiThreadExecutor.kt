@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.os.SystemClock
-import java.util.HashMap
 
 object UiThreadExecutor {
 

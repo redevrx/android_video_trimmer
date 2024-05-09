@@ -33,7 +33,6 @@ import androidx.media3.transformer.EditedMediaItemSequence
 import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
-import androidx.media3.transformer.TransformationRequest
 import androidx.media3.ui.AspectRatioFrameLayout
 import com.redevrx.video_trimmer.R
 import com.redevrx.video_trimmer.databinding.TrimmerViewLayoutBinding
@@ -47,7 +46,6 @@ import java.io.File
 import java.lang.ref.WeakReference
 import java.util.Locale
 import java.util.UUID
-import javax.xml.transform.Transformer
 
 class VideoEditor @JvmOverloads constructor(
     context: Context,
@@ -216,7 +214,7 @@ class VideoEditor @JvmOverloads constructor(
             if (mResetSeekBar) {
                 mResetSeekBar = false
                 mPlayer.seekTo(mStartPosition)
-                binding.handlerTop.visibility=View.VISIBLE
+                binding.handlerTop.visibility = View.VISIBLE
                 setProgressBarPosition(0)
             }
             mResetSeekBar = false
@@ -347,7 +345,6 @@ class VideoEditor @JvmOverloads constructor(
     }
 
     private fun updateVideoProgress(time: Long) {
-        if (binding.videoLoader == null) return
         if (time <= mStartPosition && time <= mEndPosition) binding.handlerTop.visibility =
             View.GONE
         else binding.handlerTop.visibility = View.VISIBLE
@@ -381,13 +378,15 @@ class VideoEditor @JvmOverloads constructor(
 
         val filePath = "$destinationPath/${UUID.randomUUID()}.mp4"
 
-        val transformation = TransformationRequest.Builder()
+//        val transformation = TransformationRequest.Builder()
+//            .setVideoMimeType(MimeTypes.VIDEO_H264)
+//            .setAudioMimeType(MimeTypes.AUDIO_AAC)
+//            //.setHdrMode()
+//            .build()
+        val transformer = androidx.media3.transformer.Transformer.Builder(context)
             .setVideoMimeType(MimeTypes.VIDEO_H264)
             .setAudioMimeType(MimeTypes.AUDIO_AAC)
-            //.setHdrMode()
-            .build()
-        val transformer = androidx.media3.transformer.Transformer.Builder(context)
-            .setTransformationRequest(transformation)
+//            .setTransformationRequest(transformation)
             .addListener(object : androidx.media3.transformer.Transformer.Listener {
                 override fun onCompleted(composition: Composition, exportResult: ExportResult) {
                     mOnVideoEditedListener?.getResult(Uri.parse(filePath))
@@ -528,12 +527,13 @@ class VideoEditor @JvmOverloads constructor(
                 onVideoPrepared(mPlayer)
 
             }
+
             override fun onPlaybackStateChanged(state: Int) {
                 if (state == Player.STATE_ENDED) {
                     // Video has ended, seek back to the start
-                    mResetSeekBar=true
+                    mResetSeekBar = true
                     mPlayer.seekTo(mStartPosition)
-                    binding.handlerTop.visibility=View.VISIBLE
+                    binding.handlerTop.visibility = View.VISIBLE
                     setProgressBarPosition(0)
                     // You might want to start playing the video again here if needed
                     // mPlayer.play()
@@ -588,8 +588,8 @@ class VideoEditor @JvmOverloads constructor(
 
     fun onResume() {
         mPlayer.seekTo(videoPlayerCurrentPosition)
-        if(binding?.videoLoader?.player?.isPlaying==true){
-            binding.handlerTop.visibility= View.VISIBLE
+        if (binding.videoLoader.player?.isPlaying == true) {
+            binding.handlerTop.visibility = View.VISIBLE
         }
 //        binding.videoLoader.seekTo(videoPlayerCurrentPosition)
     }
@@ -602,17 +602,16 @@ class VideoEditor @JvmOverloads constructor(
     private class MessageHandler(view: VideoEditor) : Handler(Looper.getMainLooper()) {
         private val mView: WeakReference<VideoEditor> = WeakReference(view)
         override fun handleMessage(msg: Message) {
-            val view = mView.get()
-            if (view == null || view.binding.videoLoader == null) return
+            val view = mView.get() ?: return
             view.notifyProgressUpdate(true)
             if (view.binding.videoLoader.player?.isPlaying == true) sendEmptyMessageDelayed(0, 10)
         }
     }
 
     companion object {
-        private const val MIN_TIME_FRAME = 1000
+        //        private const val MIN_TIME_FRAME = 1000
         private const val SHOW_PROGRESS = 2
-        private const val MIN_BITRATE = 1500000.0
+//        private const val MIN_BITRATE = 1500000.0
 
     }
 }

@@ -11,7 +11,11 @@ import com.redevrx.video_trimmer.event.OnProgressVideoEvent
 import com.redevrx.video_trimmer.event.OnRangeSeekBarEvent
 
 
-class ProgressBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr),
+class ProgressBarView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr),
     OnRangeSeekBarEvent, OnProgressVideoEvent {
 
     private var mProgressHeight: Int = 0
@@ -31,7 +35,8 @@ class ProgressBarView @JvmOverloads constructor(context: Context, attrs: Attribu
         val lineProgress = context.getColor(R.color.progress_color)
         val lineBackground = context.getColor(R.color.background_progress_color)
 
-        mProgressHeight = context.resources.getDimensionPixelOffset(R.dimen.progress_video_line_height)
+        mProgressHeight =
+            context.resources.getDimensionPixelOffset(R.dimen.progress_video_line_height)
 
         mBackgroundColor.isAntiAlias = true
         mBackgroundColor.color = lineBackground
@@ -104,7 +109,12 @@ class ProgressBarView @JvmOverloads constructor(context: Context, attrs: Attribu
                 Rect(0, mBackgroundRect!!.top, 0, mBackgroundRect!!.bottom)
             } else {
                 val newValue = (mViewWidth * scale / 100).toInt()
-                Rect(mBackgroundRect!!.left, mBackgroundRect!!.top, newValue, mBackgroundRect!!.bottom)
+                Rect(
+                    mBackgroundRect!!.left,
+                    mBackgroundRect!!.top,
+                    newValue,
+                    mBackgroundRect!!.bottom
+                )
             }
         }
         invalidate()

@@ -18,7 +18,7 @@ class MainActivity2 : AppCompatActivity(), OnVideoEditedEvent {
         setContentView(binding.root)
 
         val uri = intent.extras?.get("image") as Uri?
-        val path =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
         binding.videoTrimmer.apply {
             setVideoBackgroundColor(resources.getColor(R.color.white))

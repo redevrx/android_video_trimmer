@@ -56,20 +56,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginVertical="16dp"
             android:layout_marginHorizontal="8dp"
-            >
+            android:layout_marginVertical="16dp"
+            android:background="@android:color/black"
+            android:gravity="center">
 
             <FrameLayout
                 android:id="@+id/timeLineFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/black"
-                android:paddingHorizontal="16dp"
-                >
+                android:paddingHorizontal="16dp">
 
                 <com.redevrx.video_trimmer.view.TimeLineView
                     android:id="@+id/timeLineView"

@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.redevrx.android_video_trimmer"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.redevrx.android_video_trimmer"
@@ -44,9 +44,9 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.8.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(project(mapOf("path" to ":video-trimmer")))
 //    implementation("com.github.redevrx:android_video_trimmer:1.0.0")

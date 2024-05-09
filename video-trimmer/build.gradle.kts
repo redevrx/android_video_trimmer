@@ -82,7 +82,7 @@ afterEvaluate {
                 artifactId = "android_video_trimmer"
 
                 // Version Library Name (Example : "1.0.0")
-                version = "1.0.1"
+                version = "1.0.2"
 
             }
 

@@ -56,24 +56,27 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
             android:background="@android:color/black"
-            android:paddingStart="@dimen/_12sdp"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingEnd="@dimen/_12sdp"
-            android:paddingBottom="@dimen/_5sdp">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginVertical="16dp"
+            android:layout_marginHorizontal="8dp"
+            >
 
             <FrameLayout
                 android:id="@+id/timeLineFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/black">
+                android:background="@android:color/black"
+                android:paddingHorizontal="16dp"
+                >
 
                 <com.redevrx.video_trimmer.view.TimeLineView
                     android:id="@+id/timeLineView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+
+                    />
 
             </FrameLayout>
 
@@ -81,10 +84,10 @@
                 android:id="@+id/handlerTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:progressDrawable="@android:color/transparent"
                 android:secondaryProgress="0"
-                android:thumb="@drawable/seek_line" />
+                android:thumb="@drawable/seek_new_line" />
 
         </RelativeLayout>
 
